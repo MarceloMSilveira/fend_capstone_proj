@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MS1 Weather Journal</title>
+<link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
+<script defer src="bundle.js"></script></head>
+<body>
+  <div id = "app">
+    <div class ="holder headline">
+      Weather Journal App
+    </div>
+
+    <div class="user-entries">
+      <form id="entriesForm">
+        <div class ="holder zip">
+          <label for="zip">Enter one US Zipcode here</label>
+          <input type="text" id="zip" placeholder="enter zip code here">
+        </div>
+        <div class ="holder feel">
+          <label for="feelings">How are you feeling today?</label>
+          <textarea class= "myInput" id="feelings" placeholder="Enter your feelings here" rows="9" cols="40"></textarea>
+        </div>
+        <div class="buttons">
+          <button id="generate" type="submit">Generate</button>
+          <button type="reset">Reset</button>
+        </div>
+      </form>
+    </div>
+
+    <div id ="results">
+      <div class = "title">Recents Entries:</div>
+      <div id="allEntries"></div>
+    </div>
+
+    <div class="footer">
+      <p> A MS1 Proj <span id="this-year"></span> © All rights reserved</p>
+    </div>
+
+  </div>
+</body>
+</html>
