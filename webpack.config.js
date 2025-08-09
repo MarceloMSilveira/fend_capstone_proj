@@ -9,6 +9,7 @@ export default (env,argv) =>  {
     plugins: [
       new HtmlWebpackPlugin({
         template: './frontend/index.html',
+        minify: !isDev
       }),
     ],
     output: {
@@ -47,7 +48,26 @@ export default (env,argv) =>  {
               ]
             }
           }
-        }
+        },
+        { 
+          test: /\.html$/i, 
+          loader: 'html-loader',
+          options: {
+            sources: {
+              list: [
+                { tag: 'img', attribute: 'src', type: 'src' },
+                { tag: 'img', attribute: 'srcset', type: 'srcset' },
+              ]
+            }
+          }
+        },
+        // copia/embeda imagens referenciadas
+        {
+          test: /\.(png|jpe?g|gif|svg|webp)$/i,
+          type: 'asset', // vira dataURI se pequena; copia arquivo se grande
+          parser: { dataUrlCondition: { maxSize: 8 * 1024 } }, // 8KB
+          generator: { filename: 'images/[name][contenthash][ext]' }
+        },
       ]
     }
   }
