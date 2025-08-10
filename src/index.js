@@ -1,2 +1,2 @@
-import '../frontend/style.css'
-import "../frontend/app.js"
+import '../frontend/styles/style.css'
+import "../frontend/js/app.js"

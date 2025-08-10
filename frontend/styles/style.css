@@ -37,8 +37,8 @@ body{
     "header header"
     "main main"
     "footer footer";
-    border: 2px solid;
-    border-radius: 15px;
+    border: 1px solid;
+    box-shadow: 5px 5px 7px gray;
 }
 
 #app > div {
@@ -123,7 +123,7 @@ button:focus {
 @media (max-width:900px) {
     #app > div.main {
     height: auto;
-    grid-template-columns: 95%;
+    grid-template-columns: 100%;
     padding: 10px;
 }
 }
