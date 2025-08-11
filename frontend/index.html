@@ -15,12 +15,26 @@
     </div>
 
     <div class="main">
-      <div>
+      <div id="show-image">
         <figure>
           <img src="./imgs/ny_empire_states.jpg" alt="imagem de um esquilo no cenral park">
         </figure>
       </div>
-      <div>data</div>
+      <div id="deal-data">
+        <form id="get-data-form">
+          <label for="place-to-go">Go to: </label>
+          <input id="place-to-go" type="text">
+          <br>
+          <label for="departure-date">Departure date: </label>
+          <input id="departure-date" type="date">
+          <br>
+          <input id="submit-btn" type="submit">
+        </form>
+        <div id="result">
+          <h2>Minha Trip:</h2>
+          <p>Place: <span></span></p>  
+        </div>
+      </div>
     </div>
 
     <div class="footer">

@@ -1,17 +1,19 @@
+import setCurrentYearInFooter from "./myFunctions/yearToFooter.js";
+import onSubmitForm from "./myFunctions/parseSubmit.js";
 
-//imports
-import axios from "axios";
-
-
-/* Global Variables */
-
-function setCurrentYearInFooter() {
-  const spanElement = document.querySelector("#this-year");
-  const thisYear = new Date().getFullYear();
-  //console.log('test');
-  //console.log(thisYear);
-  spanElement.textContent = thisYear;
+export let projData = {
+  city: '',
+  country: '',
+  departurDate: '',
+  weather: {
+    high:'',
+    low:'',
+    description:''
+  }
 }
+
+const submitElement = document.querySelector("#submit-btn");
+submitElement.addEventListener('click',onSubmitForm);
 
 setCurrentYearInFooter();
 
