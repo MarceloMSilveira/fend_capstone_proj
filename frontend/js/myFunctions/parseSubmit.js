@@ -23,10 +23,17 @@ async function callWeatherbitApi(lat,lng) {
   projData.weather.high = temp;
 }
 
+function setUI() {
+  document.querySelector('#result .place').textContent = `${projData.city}, ${projData.country}`;
+  document.querySelector('#result .temp').textContent = `${projData.weather.high} degrees`;
+  document.querySelector('#result .description').textContent = `${projData.weather.description}, ${projData.country}`
+}
+
 
 export default async function onSubmitForm(evt) {
   evt.preventDefault();
   const placeToGo = document.querySelector('#place-to-go').value;
   const {lat, lng} = await callGeonamesApi(placeToGo);
-  callWeatherbitApi(lat,lng);
+  await callWeatherbitApi(lat,lng);
+  setUI()
 }
