@@ -5,10 +5,11 @@ async function callGeonamesApi(placeToGo) {
   const place = encodeURIComponent(placeToGo);
   const url = `http://api.geonames.org/searchJSON?q=${place}&maxRows=10&username=MarceloMSilveira`;
   const allData = await axios.get(url);
-  const cityName = allData.data.geonames[0].countryName
+  const {countryCode, name:cityName, lng, lat} = allData.data.geonames[0]
+
   //console.log(allData.data.geonames[0].name);
   const spanElement = document.querySelector("#result span");
-  spanElement.textContent = cityName;
+  spanElement.textContent = `${cityName}, ${countryCode}`;
 }
 
 
