@@ -64,6 +64,7 @@ body{
     display: grid;
     grid-template-columns: 45% 55%;
     padding: 20px;
+    column-gap: 30px;
 }
 
 figure {
@@ -80,6 +81,10 @@ img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+}
+
+#result p {
+    margin: 0px;
 }
 
 
@@ -125,5 +130,6 @@ button:focus {
     height: auto;
     grid-template-columns: 100%;
     padding: 10px;
+    row-gap: 20px;
 }
 }
