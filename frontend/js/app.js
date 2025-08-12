@@ -4,8 +4,9 @@ import onSubmitForm from "./myFunctions/parseSubmit.js";
 export let projData = {
   city: '',
   country: '',
-  departurDate: '',
+  departureDate: '',
   weather: {
+    temp:'',
     high:'',
     low:'',
     description:''

@@ -20,8 +20,9 @@ function calculateDaysRemaining(targetDate) {
 }
 
 export default function getDaysToGo() {
-  const travelDate = document.querySelector('#departure-date').value;
+  const travelDate = projData.departureDate;
   const daysToGo = calculateDaysRemaining(travelDate);
   const dateShow = document.querySelector('#daysToGo');
   dateShow.textContent = `${projData.city} is ${daysToGo} days away.`
+  return daysToGo;
 }
