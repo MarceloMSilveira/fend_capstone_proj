@@ -27,7 +27,7 @@ body{
 
 #app{
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 1fr 1fr;
     height:90%;
     width: 80%;
     justify-content: center;
@@ -36,6 +36,7 @@ body{
     grid-template-areas: 
     "header header"
     "main main"
+    "trips trips"
     "footer footer";
     border: 1px solid;
     box-shadow: 5px 5px 7px gray;
@@ -60,9 +61,8 @@ body{
     grid-area: main;
     background-color: #FDECEC;
     margin: 10px 20px;
-    height: 400px;
     display: grid;
-    grid-template-columns: 45% 55%;
+    grid-template-columns: 1fr 1fr;
     padding: 20px;
     column-gap: 30px;
 }
@@ -72,7 +72,6 @@ figure {
   flex-flow: column;
   padding: 5px;
   width: 100%;
-  height: 350px;
   margin: auto;
   align-items: center;
 }
@@ -92,8 +91,20 @@ img {
     font-weight: bold;
 }
 
+.saved-trips {
+    grid-area: trips;
+    margin: 10px 20px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+}
+
 #get-data-form {
     margin-bottom: 20px;
+}
+
+#deal-data {
+    padding: 0px 10px;
 }
 
 

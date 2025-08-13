@@ -1,6 +1,7 @@
 import path from "path";
 const __dirname = import.meta.dirname;
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import webpack from "webpack";
 
 export default (env,argv) =>  {
   const isDev = argv.mode === 'development';
@@ -10,6 +11,10 @@ export default (env,argv) =>  {
       new HtmlWebpackPlugin({
         template: './frontend/index.html',
         minify: !isDev
+      }),
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
       }),
     ],
     output: {
