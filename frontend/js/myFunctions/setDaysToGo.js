@@ -23,6 +23,6 @@ export default function getDaysToGo() {
   const travelDate = projData.departureDate;
   const daysToGo = calculateDaysRemaining(travelDate);
   const daysToGoParagraph = document.querySelector('#daysToGo');
-  daysToGoParagraph.textContent = `${projData.city}, ${projData.country} is ${daysToGo} days away.`
+  daysToGoParagraph.textContent = `${projData.city}, ${projData.country} is ${daysToGo} days away. Your stay is for ${projData.tripLength} days! `
   return daysToGo;
 }

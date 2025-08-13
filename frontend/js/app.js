@@ -5,6 +5,8 @@ export let projData = {
   city: '',
   country: '',
   departureDate: '',
+  returnDate:'',
+  tripLength:'',
   weather: {
     temp:'',
     high:'',

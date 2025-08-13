@@ -7,11 +7,16 @@ export default function setUI(travelIsInComingDays) {
     weatherDiv.innerHTML =
       `<p>Current weather: </p>
        <p>Temp: ${projData.weather.temp} degrees</p>  
-       <p>Weather: ${projData.weather.description}</p>`;
+       <p>Weather: ${projData.weather.description}</p>
+       <input id="saveTrip" type="submit" value="save">
+       <input id="clearTrip" type="reset" value="clear">`
+       ;
   } else {
        weatherDiv.innerHTML =
       `<p>Typical weather for then is: </p>
        <p>High: ${projData.weather.high}, Low: ${projData.weather.low} </p>  
-       <p>Weather: ${projData.weather.description}</p>`;
+       <p>Weather: ${projData.weather.description}</p>
+       <input id="saveTrip" type="submit" value="save">
+       <input id="clearTrip" type="reset" value="clear">`;
   }
 }

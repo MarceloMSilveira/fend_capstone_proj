@@ -3,6 +3,24 @@ import axios from "axios";
 import getDaysToGo from "./setDaysToGo.js";
 import setUI from "./uiSetting.js";
 
+function calculateDaysBetween(initialDate, finalDate) {
+    
+  // Convert the target date to milliseconds
+  const init = new Date(initialDate);
+  const final = new Date(finalDate);
+  
+  // Calculate the time difference in milliseconds
+  const timeDifference = final.getTime() - init.getTime();
+  
+  // Define the number of milliseconds in one day
+  const msInOneDay = 1000 * 60 * 60 * 24;
+  
+  // Convert the millisecond difference to days and round down
+  const daysBetween = Math.floor(timeDifference / msInOneDay);
+  
+  return daysBetween;
+}
+
 function subtractOneYear(dateString) {
   // Quebra a string em partes
   const [year, month, day] = dateString.split('-').map(Number);
@@ -37,8 +55,9 @@ export default async function callWeatherbitApi(lat,lng) {
   
   const apiKey = '7bcbccd81e84418d8552d07ba5baf291';
   projData.departureDate = document.querySelector('#departure-date').value;
+  projData.returnDate = document.querySelector('#return-date').value;
+  projData.tripLength = calculateDaysBetween(projData.departureDate,projData.returnDate);
   const daysToGo = getDaysToGo();
-  console.log(`faltam : ${daysToGo} dias`);
 
   async function travelNextFewDays() {
     const travelIsInComingDays = true;

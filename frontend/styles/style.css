@@ -87,6 +87,15 @@ img {
     margin: 0px;
 }
 
+.trip-preview {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#get-data-form {
+    margin-bottom: 20px;
+}
+
 
 .footer {
     grid-area: footer;
@@ -100,7 +109,6 @@ img {
 }
 
 /* Reset style for HTML element on active to have no border*/
-input:focus,
 select:focus,
 textarea:focus,
 button:focus {
