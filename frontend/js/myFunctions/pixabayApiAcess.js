@@ -1,10 +1,12 @@
 import axios from "axios";
+import { trip } from "../app.js";
+import showTripImg from "./showTripImg.js";
 
 function getRandomNr(totalHits) {
   if (totalHits>10){
     return Math.floor((10)*Math.random());
   } else {
-    return 0;
+    return Math.floor((totalHits)*Math.random());
   }
     
 }
@@ -14,8 +16,6 @@ export default async function getImage(place) {
   const result = await axios.get(url);
   const randomImg = getRandomNr(result.data.totalHits);
   const imgUrl = result.data.hits[randomImg].largeImageURL;
-  const altForImg = `a random image from pixabay site for ${place}`;
-  const image = document.querySelector("#show-image img");
-  image.setAttribute('alt',altForImg);
-  image.setAttribute('src',imgUrl);
+  trip.imgUrl = imgUrl;
+  showTripImg(trip);
 }

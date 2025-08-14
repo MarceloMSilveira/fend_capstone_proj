@@ -1,7 +1,7 @@
-import { projData } from "../app.js";
+import {trip} from "../app.js";
 import axios from "axios";
 import getDaysToGo from "./setDaysToGo.js";
-import setUI from "./uiSetting.js";
+import setPreviewUI from "./previewUISettings.js";
 
 function calculateDaysBetween(initialDate, finalDate) {
     
@@ -20,7 +20,6 @@ function calculateDaysBetween(initialDate, finalDate) {
   
   return daysBetween;
 }
-
 function subtractOneYear(dateString) {
   // Quebra a string em partes
   const [year, month, day] = dateString.split('-').map(Number);
@@ -35,7 +34,6 @@ function subtractOneYear(dateString) {
 
   return `${newYear}-${newMonth}-${newDay}`;
 }
-
 function addSevenDays(initialDate) {
   // Create a copy of the initial date to avoid modifying the original
   const newDate = new Date(initialDate);
@@ -52,26 +50,16 @@ function addSevenDays(initialDate) {
 }
 
 export default async function callWeatherbitApi(lat,lng) {
-  
-  const apiKey = '7bcbccd81e84418d8552d07ba5baf291';
-  projData.departureDate = document.querySelector('#departure-date').value;
-  projData.returnDate = document.querySelector('#return-date').value;
-  projData.tripLength = calculateDaysBetween(projData.departureDate,projData.returnDate);
-  const daysToGo = getDaysToGo();
 
   async function travelNextFewDays() {
-    const travelIsInComingDays = true;
     const url = `https://api.weatherbit.io/v2.0/current?lat=${lat}&lon=${lng}&key=${apiKey}`;
     const allData = await axios.get(url);
     const {weather, temp} = allData.data.data[0];
-    projData.weather.description = weather.description;
-    projData.weather.temp = temp;
-    //console.log(projData);
-    setUI(travelIsInComingDays)
+    trip.weather.description = weather.description;
+    trip.weather.temp = temp;
   }
 
   async function travelInTheFuture() {
-    const travelIsInComingDays = false;
     const start_date = document.querySelector('#departure-date').value;
     const end_date = addSevenDays(new Date(start_date));
 
@@ -81,20 +69,25 @@ export default async function callWeatherbitApi(lat,lng) {
     //não tinha nada (undefined) nesse campos
     const start_date_1YearAgo = subtractOneYear(start_date);
     const end_date_1YearAgo = subtractOneYear(end_date);
-    const city = `${encodeURIComponent(projData.city)},${projData.country}`;
+    const city = `${encodeURIComponent(trip.city)},${trip.country}`;
     const url = `https://api.weatherbit.io/v2.0/history/daily?city=${city}&start_date=${start_date_1YearAgo}&end_date=${end_date_1YearAgo}&key=${apiKey}`;
     const allData = await axios.get(url);
     console.log(allData.data.data[0])
     const {max_temp, min_temp, clouds} = allData.data.data[0];
-    projData.weather.high = max_temp;
-    projData.weather.low = min_temp;
-    projData.weather.description = Number(clouds)>50 ? "Mostly cloudy" : "Clear skies";
-    setUI(travelIsInComingDays)
+    trip.weather.high = max_temp;
+    trip.weather.low = min_temp;
+    trip.weather.description = Number(clouds)>50 ? "Mostly cloudy" : "Clear skies";
   }
 
+  const apiKey = '7bcbccd81e84418d8552d07ba5baf291';
+  trip.tripLength = calculateDaysBetween(trip.departureDate,trip.returnDate);
+  const daysToGo = getDaysToGo(trip);
+
   if (daysToGo<8){
-    travelNextFewDays()
+    await travelNextFewDays()
   } else {
-    travelInTheFuture()
+    await travelInTheFuture()
   }
+
+  setPreviewUI(trip)
 }
