@@ -1,8 +1,9 @@
 import { trip, trips } from "../app.js";
 import showAllTrips from "./showUserTrips.js";
+import { nanoid } from "nanoid";
 
 export default function saveNewTrip() {
-  
+  trip.id = nanoid();
   //add a new trip in the array of trips
   //é necessário criar um novo obj com os valores da nova viagem
   trips.push({...trip});
