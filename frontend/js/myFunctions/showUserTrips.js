@@ -1,5 +1,7 @@
 //rendering the saved trips
 export default function showAllTrips() {
+  const userTripsDiv = document.querySelector('.saved-trips');
+  userTripsDiv.innerHTML = '';
   const trips = JSON.parse(localStorage.getItem('tripsOnLocalStorage'));
   if (trips) {
     trips.forEach(

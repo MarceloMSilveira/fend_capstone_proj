@@ -17,12 +17,13 @@ export const trip = {
   }
 };
 
-export const trips = [];
+export let trips = [];
 
 const previousTrips = localStorage.getItem('tripsOnLocalStorage');
 
 if (previousTrips) {
   showAllTrips();
+  trips = JSON.parse(localStorage.getItem('tripsOnLocalStorage'));
 }
 
 const submitElement = document.querySelector("#submit-btn");
