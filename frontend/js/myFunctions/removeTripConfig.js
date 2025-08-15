@@ -1,6 +1,8 @@
 export default function removeTripConfig() {
-  const deleteBtn = document.querySelector('.delete-trip');
-  deleteBtn.addEventListener('click',(evt)=>{
-    console.log(evt.target);
+  const deleteBtns = document.querySelectorAll('.delete-trip');
+  deleteBtns.forEach( (deleteBtn)=>{
+    deleteBtn.addEventListener('click',(evt)=>{
+      const id = evt.target.parentElement.getAttribute('id');
+    });
   })
 }

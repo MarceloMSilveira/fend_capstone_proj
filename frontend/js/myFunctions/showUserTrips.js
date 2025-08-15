@@ -23,16 +23,15 @@ export default function showAllTrips() {
         `;
         newDiv.innerHTML = htmlString;
         userTripsDiv.appendChild(newDiv);
-
-        //tenho que adicionar funcionalidade para os botões remove
+      }
+    )
+    removeAllBtn.removeAttribute('hidden');      
+    //tenho que adicionar funcionalidade para os botões remove
         //quando esse botão for clicado eu vou remover a trip correspondente
         //remover do local storage e da variável trips
         //e depois renderizar as viagens do usuário.
         //inicialmente vou mostrar o id correspondente.
-        //removeTripConfig()
-      }
-    )
-    removeAllBtn.removeAttribute('hidden');      
+    removeTripConfig()
   } else {
     console.log('nenhuma viagem salva no local storage');
     removeAllBtn.setAttribute('hidden','');
