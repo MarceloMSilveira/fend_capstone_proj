@@ -1,5 +1,6 @@
 import setCurrentYearInFooter from "./myFunctions/yearToFooter.js";
 import onSubmitForm from "./myFunctions/parseSubmit.js";
+import showAllTrips from "./myFunctions/showUserTrips.js";
 
 export const trip = {
   city: '',
@@ -16,7 +17,14 @@ export const trip = {
   }
 };
 
-export const trips = [];
+export let trips = [];
+
+const previousTrips = localStorage.getItem('tripsOnLocalStorage');
+
+if (previousTrips) {
+  showAllTrips();
+  trips = JSON.parse(localStorage.getItem('tripsOnLocalStorage'));
+}
 
 const submitElement = document.querySelector("#submit-btn");
 submitElement.addEventListener('click',onSubmitForm);
