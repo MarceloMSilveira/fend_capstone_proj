@@ -125,6 +125,10 @@ img {
     margin-bottom: 20px;
 }
 
+#get-data-form input {
+    font-size: 20px;
+}
+
 #deal-data {
     padding: 0px 10px;
 }
