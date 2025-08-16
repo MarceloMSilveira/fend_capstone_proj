@@ -1,4 +1,5 @@
 import removeTripConfig from "./removeTripConfig.js";
+import showOneTripConfig from "./showOneSavedTrip.js";
 
 //rendering the saved trips
 export default function showAllTrips() {
@@ -30,7 +31,8 @@ export default function showAllTrips() {
         //remover do local storage e da variável trips
         //e depois renderizar as viagens do usuário.
         //inicialmente vou mostrar o id correspondente.
-    removeTripConfig()
+    removeTripConfig();
+    showOneTripConfig();
   } else {
     console.log('nenhuma viagem salva no local storage');
     removeAllBtn.setAttribute('hidden','');

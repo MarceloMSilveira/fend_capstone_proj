@@ -301,6 +301,38 @@ function getDaysToGo(trip) {
 
 /***/ }),
 
+/***/ "./frontend/js/myFunctions/showOneSavedTrip.js":
+/*!*****************************************************!*\
+  !*** ./frontend/js/myFunctions/showOneSavedTrip.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ showOneTripConfig)
+/* harmony export */ });
+/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.js */ "./frontend/js/app.js");
+
+function showOneTripConfig() {
+  const showOneTripBtns = document.querySelectorAll('.show-trip');
+  showOneTripBtns.forEach(showBtn => {
+    showBtn.addEventListener('click', evt => {
+      const id = evt.target.parentElement.getAttribute('id');
+      const cityToShow = _app_js__WEBPACK_IMPORTED_MODULE_0__.trips.filter(trip => trip.id === id)[0].city;
+      const urlToShow = _app_js__WEBPACK_IMPORTED_MODULE_0__.trips.filter(trip => trip.id === id)[0].imgUrl;
+      console.log(cityToShow);
+      console.log(urlToShow);
+      const altForImg = `a random image from pixabay site for ${cityToShow}`;
+      const image = document.querySelector("#show-image img");
+      image.setAttribute('alt', altForImg);
+      image.setAttribute('src', urlToShow);
+    });
+  });
+}
+
+/***/ }),
+
 /***/ "./frontend/js/myFunctions/showTripImg.js":
 /*!************************************************!*\
   !*** ./frontend/js/myFunctions/showTripImg.js ***!
@@ -313,7 +345,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ showTripImg)
 /* harmony export */ });
 function showTripImg(trip) {
-  console.log(`Show the img of ${trip.city}`);
   const altForImg = `a random image from pixabay site for ${trip.city}`;
   const image = document.querySelector("#show-image img");
   image.setAttribute('alt', altForImg);
@@ -334,6 +365,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ showAllTrips)
 /* harmony export */ });
 /* harmony import */ var _removeTripConfig_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./removeTripConfig.js */ "./frontend/js/myFunctions/removeTripConfig.js");
+/* harmony import */ var _showOneSavedTrip_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./showOneSavedTrip.js */ "./frontend/js/myFunctions/showOneSavedTrip.js");
+
 
 
 //rendering the saved trips
@@ -364,6 +397,7 @@ function showAllTrips() {
     //e depois renderizar as viagens do usuário.
     //inicialmente vou mostrar o id correspondente.
     (0,_removeTripConfig_js__WEBPACK_IMPORTED_MODULE_0__["default"])();
+    (0,_showOneSavedTrip_js__WEBPACK_IMPORTED_MODULE_1__["default"])();
   } else {
     console.log('nenhuma viagem salva no local storage');
     removeAllBtn.setAttribute('hidden', '');
@@ -20280,7 +20314,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("5d768523d63c1d80df99")
+/******/ 		__webpack_require__.h = () => ("39623f8048e83f7f6376")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
