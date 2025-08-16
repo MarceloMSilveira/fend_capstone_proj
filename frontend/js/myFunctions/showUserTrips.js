@@ -9,7 +9,6 @@ export default function showAllTrips() {
   if (trips) {
     trips.forEach(
       (userTrip) => {
-        console.log(`criando um div para ${userTrip.city}, id: ${userTrip.id}`)
         const newDiv = document.createElement('div');
         newDiv.classList.add('user-trip');
         const htmlString = 

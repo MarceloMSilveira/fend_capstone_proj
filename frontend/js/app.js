@@ -29,8 +29,8 @@ if (previousTrips) {
   //console.log('test');
 }
 
-const submitElement = document.querySelector("#submit-btn");
-submitElement.addEventListener('click',onSubmitForm);
+const form = document.querySelector("#get-data-form");
+form.addEventListener('submit',onSubmitForm);
 
 setCurrentYearInFooter();
 

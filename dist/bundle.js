@@ -42,8 +42,8 @@ if (previousTrips) {
 } else {
   //console.log('test');
 }
-const submitElement = document.querySelector("#submit-btn");
-submitElement.addEventListener('click', _myFunctions_parseSubmit_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
+const form = document.querySelector("#get-data-form");
+form.addEventListener('submit', _myFunctions_parseSubmit_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
 (0,_myFunctions_yearToFooter_js__WEBPACK_IMPORTED_MODULE_0__["default"])();
 const removeAllBtn = document.querySelector('#remove-all');
 removeAllBtn.addEventListener('click', () => {
@@ -344,7 +344,6 @@ function showAllTrips() {
   const trips = JSON.parse(localStorage.getItem('tripsOnLocalStorage'));
   if (trips) {
     trips.forEach(userTrip => {
-      console.log(`criando um div para ${userTrip.city}, id: ${userTrip.id}`);
       const newDiv = document.createElement('div');
       newDiv.classList.add('user-trip');
       const htmlString = `<p>Travel to ${userTrip.city}, ${userTrip.country}</p> 
@@ -20281,7 +20280,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("576bc2a175642784590e")
+/******/ 		__webpack_require__.h = () => ("5d768523d63c1d80df99")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
