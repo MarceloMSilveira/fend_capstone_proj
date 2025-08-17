@@ -188,14 +188,25 @@ function setPreviewUI(trip) {
     weatherDiv.innerHTML = `<p>Current weather: </p>
        <p>Temp: ${trip.weather.temp} degrees</p>  
        <p>Weather: ${trip.weather.description}</p>
-       <input id="save-trip" type="submit" value="save">
-       <input id="clear-trip" type="reset" value="clear">`;
+       <div class = "save-btn-div">
+        <input id="save-trip" type="submit" value="save">
+        <input id="clear-trip" type="reset" value="clear"> 
+       </div>
+       `;
   } else {
     weatherDiv.innerHTML = `<p>Typical weather for then is: </p>
        <p>High: ${trip.weather.high}, Low: ${trip.weather.low} </p>  
        <p>Weather: ${trip.weather.description}</p>
-       <input id="save-trip" type="submit" value="save">
-       <input id="clear-trip" type="reset" value="clear">`;
+       <div class = "save-btn-div">
+        <input id="save-trip" type="submit" value="save">
+        <input id="clear-trip" type="reset" value="clear"> 
+       </div>
+       `;
+  }
+  const saveBtnDiv = document.querySelector('.save-btn-div');
+  //caso a viagem já esteja salva (ou seja ela já possui um id) eu não mostro o btn de save e o btn clear
+  if (trip.id) {
+    saveBtnDiv.setAttribute('hidden', '');
   }
   $('#save-trip').on('click', _saveTrip_js__WEBPACK_IMPORTED_MODULE_0__["default"]);
 }
@@ -301,6 +312,40 @@ function getDaysToGo(trip) {
 
 /***/ }),
 
+/***/ "./frontend/js/myFunctions/showOneSavedTrip.js":
+/*!*****************************************************!*\
+  !*** ./frontend/js/myFunctions/showOneSavedTrip.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ showOneTripConfig)
+/* harmony export */ });
+/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.js */ "./frontend/js/app.js");
+/* harmony import */ var _previewUISettings_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./previewUISettings.js */ "./frontend/js/myFunctions/previewUISettings.js");
+
+
+function showOneTripConfig() {
+  const showOneTripBtns = document.querySelectorAll('.show-trip');
+  showOneTripBtns.forEach(showBtn => {
+    showBtn.addEventListener('click', evt => {
+      const id = evt.target.parentElement.getAttribute('id');
+      const trip = _app_js__WEBPACK_IMPORTED_MODULE_0__.trips.filter(trip => trip.id === id)[0];
+      const cityToShow = trip.city;
+      const urlToShow = trip.imgUrl;
+      const altForImg = `a random image from pixabay site for ${cityToShow}`;
+      const image = document.querySelector("#show-image img");
+      image.setAttribute('alt', altForImg);
+      image.setAttribute('src', urlToShow);
+      (0,_previewUISettings_js__WEBPACK_IMPORTED_MODULE_1__["default"])(trip);
+    });
+  });
+}
+
+/***/ }),
+
 /***/ "./frontend/js/myFunctions/showTripImg.js":
 /*!************************************************!*\
   !*** ./frontend/js/myFunctions/showTripImg.js ***!
@@ -313,7 +358,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ showTripImg)
 /* harmony export */ });
 function showTripImg(trip) {
-  console.log(`Show the img of ${trip.city}`);
   const altForImg = `a random image from pixabay site for ${trip.city}`;
   const image = document.querySelector("#show-image img");
   image.setAttribute('alt', altForImg);
@@ -334,6 +378,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ showAllTrips)
 /* harmony export */ });
 /* harmony import */ var _removeTripConfig_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./removeTripConfig.js */ "./frontend/js/myFunctions/removeTripConfig.js");
+/* harmony import */ var _showOneSavedTrip_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./showOneSavedTrip.js */ "./frontend/js/myFunctions/showOneSavedTrip.js");
+
 
 
 //rendering the saved trips
@@ -364,6 +410,7 @@ function showAllTrips() {
     //e depois renderizar as viagens do usuário.
     //inicialmente vou mostrar o id correspondente.
     (0,_removeTripConfig_js__WEBPACK_IMPORTED_MODULE_0__["default"])();
+    (0,_showOneSavedTrip_js__WEBPACK_IMPORTED_MODULE_1__["default"])();
   } else {
     console.log('nenhuma viagem salva no local storage');
     removeAllBtn.setAttribute('hidden', '');
@@ -455,7 +502,6 @@ async function callWeatherbitApi(lat, lng) {
     const city = `${encodeURIComponent(_app_js__WEBPACK_IMPORTED_MODULE_0__.trip.city)},${_app_js__WEBPACK_IMPORTED_MODULE_0__.trip.country}`;
     const url = `https://api.weatherbit.io/v2.0/history/daily?city=${city}&start_date=${start_date_1YearAgo}&end_date=${end_date_1YearAgo}&key=${apiKey}`;
     const allData = await axios__WEBPACK_IMPORTED_MODULE_1__["default"].get(url);
-    console.log(allData.data.data[0]);
     const {
       max_temp,
       min_temp,
@@ -20280,7 +20326,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("ce2adf40b23ce1b0d6d7")
+/******/ 		__webpack_require__.h = () => ("db7493cd33110e6f6059")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */

@@ -72,7 +72,6 @@ export default async function callWeatherbitApi(lat,lng) {
     const city = `${encodeURIComponent(trip.city)},${trip.country}`;
     const url = `https://api.weatherbit.io/v2.0/history/daily?city=${city}&start_date=${start_date_1YearAgo}&end_date=${end_date_1YearAgo}&key=${apiKey}`;
     const allData = await axios.get(url);
-    console.log(allData.data.data[0])
     const {max_temp, min_temp, clouds} = allData.data.data[0];
     trip.weather.high = max_temp;
     trip.weather.low = min_temp;
