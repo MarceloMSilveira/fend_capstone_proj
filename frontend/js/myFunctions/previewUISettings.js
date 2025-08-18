@@ -38,6 +38,8 @@ export default function setPreviewUI(trip) {
   //caso a viagem já esteja salva (ou seja ela já possui um id) eu não mostro o btn de save e o btn clear
   if (trip.id) {
     saveBtnDiv.setAttribute('hidden','')
+  } else {
+    saveBtnDiv.removeAttribute('hidden')
   }
 
   $('#save-trip').on('click', saveNewTrip);

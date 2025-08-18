@@ -39,11 +39,16 @@ h2{
     font-family: 'Oswald', sans-serif;
     grid-template-areas: 
     "header header"
+    "form form"
     "main main"
     "trips trips"
     "footer footer";
     border: 1px solid;
     box-shadow: 5px 5px 7px gray;
+}
+
+.div-form{
+    grid-area: form;
 }
 
 .headline {
@@ -122,7 +127,10 @@ img {
 }
 
 #get-data-form {
-    margin-bottom: 20px;
+    margin: 0px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 #get-data-form input {
@@ -182,9 +190,14 @@ button:focus {
 
 @media (max-width:900px) {
     #app > div.main {
-    height: auto;
-    grid-template-columns: 100%;
-    padding: 10px;
-    row-gap: 20px;
-}
+        height: auto;
+        grid-template-columns: 100%;
+        padding: 10px;
+        row-gap: 20px;
+    }
+
+    #get-data-form {
+        flex-direction: column;
+        justify-content: start;
+    }
 }
