@@ -1,4 +1,5 @@
 import removeTripConfig from "./removeTripConfig.js";
+import getDaysToGo from "./setDaysToGo.js";
 import showOneTripConfig from "./showOneSavedTrip.js";
 import sortTrips from "./sortTrips.js";
 
@@ -19,7 +20,7 @@ export default function showAllTrips() {
         const newDiv = document.createElement('div');
         newDiv.classList.add('user-trip');
         const htmlString = 
-        `<p>Travel to ${userTrip.city}, ${userTrip.country}</p> 
+        `<p>Travel to ${userTrip.city}, ${userTrip.country} in ${getDaysToGo(userTrip)} day(s)</p> 
         <p>Departure: ${userTrip.departureDate}</p>
         <p>Trip length: ${userTrip.tripLength}</p>
         <div id=${userTrip.id} class='trip-buttons'>

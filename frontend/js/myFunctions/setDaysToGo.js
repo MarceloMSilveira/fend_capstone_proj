@@ -9,5 +9,5 @@ function calculateDaysRemaining(targetDate) {
 
 export default function getDaysToGo(trip) {
   const daysToGo = calculateDaysRemaining(trip.departureDate);
-  return daysToGo;
+  return daysToGo+1;
 }
