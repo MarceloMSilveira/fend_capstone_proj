@@ -1,6 +1,7 @@
 import setCurrentYearInFooter from "./myFunctions/utils/yearToFooter.js";
 import onSubmitForm from "./myFunctions/parseSubmit.js";
 import showAllTrips from "./myFunctions/gui/showUserTrips.js";
+import onResetForm from "./myFunctions/gui/onResetForm.js";
 
 export let trip = {
   id: '',
@@ -31,6 +32,7 @@ if (previousTrips) {
 
 const form = document.querySelector("#get-data-form");
 form.addEventListener('submit',onSubmitForm);
+form.addEventListener('reset', onResetForm);
 
 setCurrentYearInFooter();
 

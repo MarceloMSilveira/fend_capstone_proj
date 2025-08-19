@@ -1,6 +1,7 @@
 import saveNewTrip from "../saveTrip.js";
 import getDaysToGo from "../utils/setDaysToGo.js";
 import getIcons from "../utils/getIcons.js"
+import onResetForm from "./onResetForm.js";
 
 export default function setPreviewUI(trip) {
   const daysToGo = getDaysToGo(trip);
@@ -41,4 +42,5 @@ export default function setPreviewUI(trip) {
   }
 
   $('#save-trip').on('click', saveNewTrip);
+  $('#clear-trip').on('click', onResetForm);
 }
