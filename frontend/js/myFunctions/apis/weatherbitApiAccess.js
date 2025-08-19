@@ -1,7 +1,7 @@
-import {trip} from "../app.js";
+import {trip} from "../../app.js";
 import axios from "axios";
-import getDaysToGo from "./setDaysToGo.js";
-import setPreviewUI from "./previewUISettings.js";
+import getDaysToGo from "../utils/setDaysToGo.js";
+import setPreviewUI from "../gui/previewUISettings.js";
 
 function calculateDaysBetween(initialDate, finalDate) {
     

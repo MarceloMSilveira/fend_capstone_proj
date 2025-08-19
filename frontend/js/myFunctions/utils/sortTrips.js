@@ -7,6 +7,5 @@ export default function sortTrips(trips) {
     trip.missingDays = getDaysToGo(trip);
   });
   trips.sort((a,b)=>a.missingDays - b.missingDays);
-  console.log('after sort:')
-  console.log(trips);
+  
 }

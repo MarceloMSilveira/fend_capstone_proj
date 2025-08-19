@@ -1,7 +1,7 @@
-import callGeonamesApi from "./geonamesApiAccess.js";
-import callWeatherbitApi from "./weatherbitApiAccess.js";
-import getImage from "./pixabayApiAcess.js";
-import setPreviewUI from "./previewUISettings.js";
+import callGeonamesApi from "./apis/geonamesApiAccess.js";
+import callWeatherbitApi from "./apis/weatherbitApiAccess.js";
+import getImage from "./apis/pixabayApiAcess.js";
+import setPreviewUI from "./gui/previewUISettings.js";
 import { trip } from "../app.js";
 
 export default async function onSubmitForm(evt) {
@@ -10,8 +10,13 @@ export default async function onSubmitForm(evt) {
   const placeToGo = document.querySelector('#place-to-go').value;
   trip.departureDate = document.querySelector('#departure-date').value;
   trip.returnDate = document.querySelector('#return-date').value;
-  const {lat, lng} = await callGeonamesApi(placeToGo);
-  await callWeatherbitApi(lat,lng);
-  await getImage(placeToGo);
-  setPreviewUI(trip);
+  try {
+    const {lat, lng} = await callGeonamesApi(placeToGo);
+    await callWeatherbitApi(lat,lng);
+    await getImage(placeToGo);
+    setPreviewUI(trip);  
+  } catch (error) {
+    console.log(error);
+  }
+  
 }

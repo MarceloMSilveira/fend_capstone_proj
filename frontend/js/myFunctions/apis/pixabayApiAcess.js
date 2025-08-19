@@ -1,6 +1,6 @@
 import axios from "axios";
-import { trip } from "../app.js";
-import showTripImg from "./showTripImg.js";
+import { trip } from "../../app.js";
+import showTripImg from "../gui/showTripImg.js";
 
 function getRandomNr(totalHits) {
   if (totalHits>10){

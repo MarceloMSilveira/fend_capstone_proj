@@ -1,4 +1,4 @@
-import { trips } from "../app.js";
+import { trips } from "../../app.js";
 import setPreviewUI from "./previewUISettings.js";
 
 export default function showOneTripConfig() {

@@ -1,5 +1,5 @@
 import { trips } from "../app.js";
-import showAllTrips from "./showUserTrips.js";
+import showAllTrips from "../myFunctions/gui/showUserTrips.js";
 
 export default function removeTripConfig() {
   const deleteBtns = document.querySelectorAll('.delete-trip');

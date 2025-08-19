@@ -1,7 +1,7 @@
-import removeTripConfig from "./removeTripConfig.js";
-import getDaysToGo from "./setDaysToGo.js";
+import removeTripConfig from "../removeTripConfig.js";
+import getDaysToGo from "../utils/setDaysToGo.js";
 import showOneTripConfig from "./showOneSavedTrip.js";
-import sortTrips from "./sortTrips.js";
+import sortTrips from "../utils/sortTrips.js";
 
 //rendering the saved trips
 export default function showAllTrips() {
@@ -9,11 +9,8 @@ export default function showAllTrips() {
   const userTripsDiv = document.querySelector('.saved-trips');
   userTripsDiv.innerHTML = '';
   const trips = JSON.parse(localStorage.getItem('tripsOnLocalStorage'));
-  console.log('before sort:')
-  console.log(trips);
-  //sort trips:
-  sortTrips(trips);
   if (trips) {
+    sortTrips(trips);
     trips.forEach(
       (userTrip) => {
         //console.log(userTrip.city)

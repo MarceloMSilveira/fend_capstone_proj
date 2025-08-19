@@ -1,6 +1,6 @@
-import saveNewTrip from "./saveTrip.js";
-import getDaysToGo from "./setDaysToGo.js";
-import getIcons from "./getIcons.js";
+import saveNewTrip from "../saveTrip.js";
+import getDaysToGo from "../utils/setDaysToGo.js";
+import getIcons from "../utils/getIcons.js"
 
 export default function setPreviewUI(trip) {
   const daysToGo = getDaysToGo(trip);

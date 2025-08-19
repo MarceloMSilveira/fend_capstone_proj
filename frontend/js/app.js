@@ -1,6 +1,6 @@
-import setCurrentYearInFooter from "./myFunctions/yearToFooter.js";
+import setCurrentYearInFooter from "./myFunctions/utils/yearToFooter.js";
 import onSubmitForm from "./myFunctions/parseSubmit.js";
-import showAllTrips from "./myFunctions/showUserTrips.js";
+import showAllTrips from "./myFunctions/gui/showUserTrips.js";
 
 export let trip = {
   id: '',
