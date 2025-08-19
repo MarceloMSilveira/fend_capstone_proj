@@ -7,7 +7,8 @@ export default function saveNewTrip() {
   //add a new trip in the array of trips
   //é necessário criar um novo obj com os valores da nova viagem
   trips.push({...trip});
-
+  console.log('inside save trip:');
+  console.log(trips);
   //saving trips no localstorage:
   localStorage.setItem('tripsOnLocalStorage', JSON.stringify(trips));
 

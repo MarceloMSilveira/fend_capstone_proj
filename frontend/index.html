@@ -16,22 +16,21 @@
     <div class="div-form">
       <form id="get-data-form">
         <div>
-          <label for="place-to-go">Go to: </label>
-          <input required id="place-to-go" type="text">
+          <label class="form-label" for="place-to-go">Go to: </label>
+          <input class="form-control" required id="place-to-go" type="text">
         </div>
         <div>
-          <label for="departure-date">From: </label>
-          <input required id="departure-date" type="date">
+          <label class="form-label" for="departure-date">From: </label>
+          <input class="form-control" required id="departure-date" type="date">
         </div>
         <div>
-          <label for="return-date">To: </label>
-          <input required id="return-date" type="date">
+          <label class="form-label" for="return-date">To: </label>
+          <input class="form-control" required id="return-date" type="date">
         </div>
         <div>
-          <input id="submit-btn" type="submit">
-          <input type="reset">
+          <input class="btn btn-primary" id="submit-btn" type="submit" value="Check">
+          <input class="btn btn-secondary" type="reset">
         </div>
-        
       </form>
     </div>
     <div class="main">
@@ -55,7 +54,7 @@
       <div class="saved-trips">
       </div>
       <div>
-        <button hidden id="remove-all"> Remove all trips </button>
+        <button hidden id="remove-all" class="btn btn-danger"> Remove all trips </button>
       </div>
     </div>
 

@@ -2,7 +2,7 @@ import setCurrentYearInFooter from "./myFunctions/yearToFooter.js";
 import onSubmitForm from "./myFunctions/parseSubmit.js";
 import showAllTrips from "./myFunctions/showUserTrips.js";
 
-export const trip = {
+export let trip = {
   id: '',
   city: '',
   country: '',

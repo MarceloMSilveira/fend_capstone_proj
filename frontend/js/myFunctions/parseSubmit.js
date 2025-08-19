@@ -6,6 +6,7 @@ import { trip } from "../app.js";
 
 export default async function onSubmitForm(evt) {
   evt.preventDefault();
+  trip.id = '';
   const placeToGo = document.querySelector('#place-to-go').value;
   trip.departureDate = document.querySelector('#departure-date').value;
   trip.returnDate = document.querySelector('#return-date').value;

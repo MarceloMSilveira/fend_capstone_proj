@@ -32,8 +32,6 @@ export default function setPreviewUI(trip) {
        `;
   }
 
-  console.log(weatherDiv.innerHTML);
-
   const saveBtnDiv = document.querySelector('.save-btn-div');
   //caso a viagem já esteja salva (ou seja ela já possui um id) eu não mostro o btn de save e o btn clear
   if (trip.id) {
