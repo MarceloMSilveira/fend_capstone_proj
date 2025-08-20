@@ -1,6 +1,7 @@
 import { trip, trips } from "../app.js";
 import showAllTrips from "./gui/showUserTrips.js";
 import { nanoid } from "nanoid";
+import saveImageToCache from "./utils/saveImgInCache.js";
 
 export default function saveNewTrip() {
   trip.id = nanoid();
@@ -9,8 +10,8 @@ export default function saveNewTrip() {
   trips.push({...trip});
   //saving trips no localstorage:
   localStorage.setItem('tripsOnLocalStorage', JSON.stringify(trips));
-
+  //saving img to cache
+  saveImageToCache(trip.imgUrl);
   //mandar imprimir as viagens do usuário
   showAllTrips()
-
 }
