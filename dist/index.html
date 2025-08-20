@@ -1,1 +1,67 @@
-<!doctype html><html><head><meta charset="UTF-8"><title>Travel Planner</title><link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Arbutus&family=Audiowide&family=Exo:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet"><script defer="defer" src="bundle.js"></script></head><body><div id="app"><div class="holder headline nunito-sans-font">Travel Planner</div><div class="div-form"><form id="get-data-form"><div><label class="form-label" for="place-to-go">My trip to:</label> <input class="form-control" required id="place-to-go"></div><div><label class="form-label" for="departure-date">Departing:</label> <input class="form-control" required id="departure-date" type="date"></div><div><label class="form-label" for="return-date">Returning:</label> <input class="form-control" required id="return-date" type="date"></div><div><input class="btn btn-primary" id="submit-btn" type="submit" value="Check"> <input class="btn btn-secondary" type="reset"></div></form></div><div class="main"><div id="show-image"><figure><img src="images/ny_empire_states9e1a2d693e42efd166fa.jpg" alt="imagem de um esquilo no cenral park"></figure></div><div id="deal-data"><div id="result"><p class="trip-preview">Trip preview:</p><p id="daysToGo"></p><div id="weather"></div></div></div></div><div class="user-trips"><h2>My Trips (sort by departure date):</h2><div class="saved-trips"></div><div><button hidden id="remove-all" class="btn btn-danger">Remove all trips</button></div></div><div class="footer"><p>A MS1 Proj <span id="this-year"></span> © All rights reserved</p></div></div></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Travel Planner</title>
+<link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arbutus&family=Audiowide&family=Exo:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+<script defer src="bundle.js"></script></head>
+<body>
+  <div id = "app">
+    <div class ="holder headline nunito-sans-font">
+      Travel Planner
+    </div>
+    <div class="div-form">
+      <form id="get-data-form">
+        <div>
+          <label class="form-label" for="place-to-go">My trip to: </label>
+          <input class="form-control" required id="place-to-go" type="text">
+        </div>
+        <div>
+          <label class="form-label" for="departure-date">Departing: </label>
+          <input class="form-control" required id="departure-date" type="date">
+        </div>
+        <div>
+          <label class="form-label" for="return-date">Returning: </label>
+          <input class="form-control" required id="return-date" type="date">
+        </div>
+        <div>
+          <input class="btn btn-primary" id="submit-btn" type="submit" value="Check">
+          <input class="btn btn-secondary" type="reset">
+        </div>
+      </form>
+    </div>
+    <div class="main">
+      <div id="show-image">
+        <figure>
+          <img src="images/ny_empire_states9e1a2d693e42efd166fa.jpg" alt="imagem de um esquilo no cenral park">
+        </figure>
+      </div>
+      <div id="deal-data">
+        <div id="result">
+          <p class="trip-preview">Trip preview:</p>
+          <p id="daysToGo"></p>
+          <div id="weather">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="user-trips">
+      <h2>My Trips (sort by departure date):</h2>
+      <div class="saved-trips">
+      </div>
+      <div>
+        <button hidden id="remove-all" class="btn btn-danger"> Remove all trips </button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p> A MS1 Proj <span id="this-year"></span> © All rights reserved</p>
+    </div>
+
+  </div>
+</body>
+</html>
