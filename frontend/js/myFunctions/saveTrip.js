@@ -14,5 +14,4 @@ export default function saveNewTrip() {
   saveImageToCache(trip.imgUrl);
   //mandar imprimir as viagens do usuário
   showAllTrips()
-
 }
