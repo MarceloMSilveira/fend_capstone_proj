@@ -11,6 +11,7 @@ export let trip = {
   returnDate:'',
   tripLength:'',
   imgUrl:'',
+  notes:'',
   weather: {
     temp:'',
     high:'',

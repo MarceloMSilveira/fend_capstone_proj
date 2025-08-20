@@ -129,6 +129,13 @@ img {
     justify-content: space-around;
 }
 
+.add-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 15px 0px;
+}
+
 #get-data-form {
     margin: 0px 20px;
     display: flex;
