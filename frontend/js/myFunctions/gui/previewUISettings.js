@@ -3,6 +3,7 @@ import getDaysToGo from "../utils/setDaysToGo.js";
 import getIcons from "../utils/getIcons.js"
 import onResetForm from "./onResetForm.js";
 import setAdd from "./notes_of_trip/setAdd.js";
+import callCountriesApi from "../apis/countryInfo.js";
 
 export default function setPreviewUI(trip) {
   let descriptionContent = '';
@@ -13,42 +14,25 @@ export default function setPreviewUI(trip) {
       <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16'/>
       <path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4'/>
     </svg>`
-  //daysToGoParagraph.textContent = `${trip.city}, ${trip.country} is ${daysToGo} days away. Your stay is for ${trip.tripLength} days! `;
-  if (travelIsInComingDays) {
-    descriptionContent =
-      ` <p>${trip.city}, ${trip.country} is ${daysToGo} days away. Your stay is for ${trip.tripLength} days!</p>
-        <p>Current weather: </p>
-        <p>Temp: ${trip.weather.temp} degrees</p>  
-        <p>Weather: ${trip.weather.description} ${getIcons(trip.weather.description)}</p>
-        <div class = "add-btns">
-          <button class="btn btn-info notes"> ${svgPlus} notes </button>
-          <button class="btn btn-info packing"> ${svgPlus} packing list </button>
-          <button class="btn btn-info lodging"> ${svgPlus} lodging info </button>
-        </div>
-        <div class = "save-btn-div">
-          <input id="save-trip" type="submit" value="save">
-          <input id="clear-trip" type="reset" value="clear"> 
-        </div>
-       `;
-      
-  } else {
-    descriptionContent =
-      ` <p>${trip.city}, ${trip.country} is ${daysToGo} days away. Your stay is for ${trip.tripLength} days!</p>
-        <p>Typical weather for then is: </p>
-        <p>High: ${trip.weather.high}, Low: ${trip.weather.low} </p>  
-        <p>Weather: ${trip.weather.description} ${getIcons(trip.weather.description)}
-        </p>
-        <div class = "add-btns">
-          <button class="btn btn-info notes"> ${svgPlus} notes </button>
-          <button class="btn btn-info packing"> ${svgPlus} packing list </button>
-          <button class="btn btn-info lodging"> ${svgPlus} lodging info </button>
-        </div>
-        <div class = "save-btn-div">
-          <input id="save-trip" type="submit" value="save">
-          <input id="clear-trip" type="reset" value="clear"> 
-        </div>
-       `;
-  }
+  
+  descriptionContent =
+    `<p>${trip.city}, ${trip.country} is ${daysToGo} days away. Your stay is for ${trip.tripLength} days!</p>
+      ${travelIsInComingDays?'<p>Current weather: </p>':'<p>Typical weather for then is: </p>'}
+      ${travelIsInComingDays?`<p>Temp: ${trip.weather.temp} degrees</p>`:`<p>High: ${trip.weather.high}, Low: ${trip.weather.low} </p>`}
+      <p>Weather: ${trip.weather.description} ${getIcons(trip.weather.description)}</p>
+      <div class = "add-btns">
+        <button class="btn btn-info notes"> ${svgPlus} notes </button>
+        <button class="btn btn-info packing"> ${svgPlus} packing list </button>
+        <button class="btn btn-info lodging"> ${svgPlus} lodging info </button>
+      </div>
+      <div class = "save-btn-div">
+        <input id="save-trip" type="submit" value="save">
+        <input id="clear-trip" type="reset" value="clear"> 
+      </div>
+      <div>
+        <a href='#' class='country-info'>country informations</a>
+      </div>
+    `;
 
   weatherDiv.innerHTML = descriptionContent;
   const saveBtnDiv = document.querySelector('.save-btn-div');
@@ -69,4 +53,5 @@ export default function setPreviewUI(trip) {
   // eu adicionei um listener ao div que contém os btns
   // agora eu posso apagar os arquivos setNotes e setPacking.
   $('div.add-btns').on('click', (evt) => setAdd(evt,trip));
+  $('a.country-info').on('click', ()=>callCountriesApi(trip))
 }
