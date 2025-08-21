@@ -1,5 +1,5 @@
-import backToWeatherDescription from "../gui/backToWeatherDescription.js";
-import showAllTrips from "../gui/showUserTrips.js";
+import backToWeatherDescription from "../../gui/notes_of_trip/backToWeatherDescription.js";
+import showAllTrips from "../../gui/showUserTrips.js";
 //salvar o conteudo da nota
 //atualizar o array de trips
 //restaurar a gui

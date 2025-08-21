@@ -2,7 +2,8 @@ import saveNewTrip from "../saveTrip.js";
 import getDaysToGo from "../utils/setDaysToGo.js";
 import getIcons from "../utils/getIcons.js"
 import onResetForm from "./onResetForm.js";
-import setNotes from "./setNotes.js";
+import setNotes from "./notes_of_trip/setNotes.js";
+import setPacking from "./notes_of_trip/setPacking.js";
 
 export default function setPreviewUI(trip) {
   let descriptionContent = '';
@@ -22,8 +23,8 @@ export default function setPreviewUI(trip) {
         <p>Weather: ${trip.weather.description} ${getIcons(trip.weather.description)}</p>
         <div class = "add-btns">
           <button class="btn btn-info notes"> ${svgPlus} notes </button>
-          <button class="btn btn-info"> ${svgPlus} packing list </button>
-          <button class="btn btn-info"> ${svgPlus} lodging info </button>
+          <button class="btn btn-info packing"> ${svgPlus} packing list </button>
+          <button class="btn btn-info lodging"> ${svgPlus} lodging info </button>
         </div>
         <div class = "save-btn-div">
           <input id="save-trip" type="submit" value="save">
@@ -40,8 +41,8 @@ export default function setPreviewUI(trip) {
         </p>
         <div class = "add-btns">
           <button class="btn btn-info notes"> ${svgPlus} notes </button>
-          <button class="btn btn-info"> ${svgPlus} packing list </button>
-          <button class="btn btn-info"> ${svgPlus} lodging info </button>
+          <button class="btn btn-info packing"> ${svgPlus} packing list </button>
+          <button class="btn btn-info lodging"> ${svgPlus} lodging info </button>
         </div>
         <div class = "save-btn-div">
           <input id="save-trip" type="submit" value="save">
@@ -66,4 +67,5 @@ export default function setPreviewUI(trip) {
   $('#save-trip').on('click', saveNewTrip);
   $('#clear-trip').on('click', onResetForm);
   $('button.notes').on('click', () => setNotes(trip));
+  $('button.packing').on('click',() => setPacking(trip));
 }

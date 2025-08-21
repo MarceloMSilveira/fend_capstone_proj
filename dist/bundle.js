@@ -30,6 +30,7 @@ let trip = {
   tripLength: '',
   imgUrl: '',
   notes: '',
+  packingList: '',
   weather: {
     temp: '',
     high: '',
@@ -241,10 +242,10 @@ async function callWeatherbitApi(lat, lng) {
 
 /***/ }),
 
-/***/ "./frontend/js/myFunctions/gui/backToWeatherDescription.js":
-/*!*****************************************************************!*\
-  !*** ./frontend/js/myFunctions/gui/backToWeatherDescription.js ***!
-  \*****************************************************************/
+/***/ "./frontend/js/myFunctions/gui/notes_of_trip/backToWeatherDescription.js":
+/*!*******************************************************************************!*\
+  !*** ./frontend/js/myFunctions/gui/notes_of_trip/backToWeatherDescription.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -252,14 +253,117 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ backToWeatherDescription)
 /* harmony export */ });
-/* harmony import */ var _setNotes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./setNotes.js */ "./frontend/js/myFunctions/gui/setNotes.js");
+/* harmony import */ var _setNotes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./setNotes.js */ "./frontend/js/myFunctions/gui/notes_of_trip/setNotes.js");
+/* harmony import */ var _setPacking_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setPacking.js */ "./frontend/js/myFunctions/gui/notes_of_trip/setPacking.js");
 /* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+
 
 function backToWeatherDescription(divContent, trip) {
   $('p.trip-preview').text(`Trip preview:`);
   $('#weather').html(divContent);
   $('button.notes').on('click', () => (0,_setNotes_js__WEBPACK_IMPORTED_MODULE_0__["default"])(trip));
+  $('button.packing').on('click', () => (0,_setPacking_js__WEBPACK_IMPORTED_MODULE_1__["default"])(trip));
 }
+
+/***/ }),
+
+/***/ "./frontend/js/myFunctions/gui/notes_of_trip/setNotes.js":
+/*!***************************************************************!*\
+  !*** ./frontend/js/myFunctions/gui/notes_of_trip/setNotes.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ setNotes)
+/* harmony export */ });
+/* harmony import */ var _utils_notes_of_trip_onCloseNote_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/notes_of_trip/onCloseNote.js */ "./frontend/js/myFunctions/utils/notes_of_trip/onCloseNote.js");
+/* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+
+function setNotes(trip) {
+  $('p.trip-preview').text(`My Notes for ${trip.city}`);
+  //salvar conteúdo atual do div
+  const weatherDivContent = $('#weather').html();
+  let prevNote = '';
+  //verificar se já tem algo salvo nas notas da viagem:
+  if (trip.notes) {
+    prevNote = trip.notes;
+    console.log(`Já está salvo nesta nota: ${prevNote}`);
+  } else {
+    prevNote = '';
+  }
+  //substituir por um texarea editável (com o conteudo anterior de notes, caso haja) 
+  // e um botão de fechar 
+  const noteDiv = `
+      <div>
+        <textarea class="note-content" rows="7" cols="50">${prevNote}</textarea>
+        <div class = "add-btns">
+          <button class="btn btn-success close-note"> Close </button>
+        </div>
+      </div>
+    `;
+  $('#weather').html(noteDiv);
+
+  //elabborar a lógica para fechar uma nota.
+  //salvar o conteudo atual da nota
+  //restaurar a gui
+  //atualizar, no array de trips, o campo notes da viagem atual.
+  $('button.close-note').on('click', () => (0,_utils_notes_of_trip_onCloseNote_js__WEBPACK_IMPORTED_MODULE_0__["default"])(weatherDivContent, trip));
+}
+//falta salvar essa trip
+//é uma viagem já existente
+//na verdade o que quero é apenas atualizar um campo (o notes) de uma viagem 
+//já salva no meu array de viagens e depois salvar de novo esse array de viagens
+// no local storage.
+
+/***/ }),
+
+/***/ "./frontend/js/myFunctions/gui/notes_of_trip/setPacking.js":
+/*!*****************************************************************!*\
+  !*** ./frontend/js/myFunctions/gui/notes_of_trip/setPacking.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ setPacking)
+/* harmony export */ });
+/* harmony import */ var _utils_notes_of_trip_onClosePackingList_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/notes_of_trip/onClosePackingList.js */ "./frontend/js/myFunctions/utils/notes_of_trip/onClosePackingList.js");
+/* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+
+function setPacking(trip) {
+  $('p.trip-preview').text(`Packing list for ${trip.city}`);
+  //salvar conteúdo atual do div
+  const weatherDivContent = $('#weather').html();
+  let prevPackingList = '';
+  //verificar se já tem algo salvo em packing list da viagem:
+  if (trip.packingList) {
+    prevPackingList = trip.packingList;
+    console.log(`Já está salvo nesta nota: ${prevPackingList}`);
+  } else {
+    prevPackingList = '';
+  }
+  //substituir por um texarea editável (com o conteudo anterior de notes, caso haja) 
+  // e um botão de fechar 
+  const noteDiv = `
+        <div>
+          <textarea class="note-content" rows="7" cols="50">${prevPackingList}</textarea>
+          <div class = "add-btns">
+            <button class="btn btn-success area-close"> Close </button>
+          </div>
+        </div>
+      `;
+  $('#weather').html(noteDiv);
+
+  //elabborar a lógica para fechar uma nota.
+  //salvar o conteudo atual da nota
+  //restaurar a gui
+  //atualizar, no array de trips, o campo packingList da viagem atual.
+  $('button.area-close').on('click', () => (0,_utils_notes_of_trip_onClosePackingList_js__WEBPACK_IMPORTED_MODULE_0__["default"])(weatherDivContent, trip));
+}
+//falta salvar essa trip
 
 /***/ }),
 
@@ -314,8 +418,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_setDaysToGo_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/setDaysToGo.js */ "./frontend/js/myFunctions/utils/setDaysToGo.js");
 /* harmony import */ var _utils_getIcons_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/getIcons.js */ "./frontend/js/myFunctions/utils/getIcons.js");
 /* harmony import */ var _onResetForm_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./onResetForm.js */ "./frontend/js/myFunctions/gui/onResetForm.js");
-/* harmony import */ var _setNotes_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./setNotes.js */ "./frontend/js/myFunctions/gui/setNotes.js");
+/* harmony import */ var _notes_of_trip_setNotes_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./notes_of_trip/setNotes.js */ "./frontend/js/myFunctions/gui/notes_of_trip/setNotes.js");
+/* harmony import */ var _notes_of_trip_setPacking_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./notes_of_trip/setPacking.js */ "./frontend/js/myFunctions/gui/notes_of_trip/setPacking.js");
 /* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+
 
 
 
@@ -338,8 +444,8 @@ function setPreviewUI(trip) {
         <p>Weather: ${trip.weather.description} ${(0,_utils_getIcons_js__WEBPACK_IMPORTED_MODULE_2__["default"])(trip.weather.description)}</p>
         <div class = "add-btns">
           <button class="btn btn-info notes"> ${svgPlus} notes </button>
-          <button class="btn btn-info"> ${svgPlus} packing list </button>
-          <button class="btn btn-info"> ${svgPlus} lodging info </button>
+          <button class="btn btn-info packing"> ${svgPlus} packing list </button>
+          <button class="btn btn-info lodging"> ${svgPlus} lodging info </button>
         </div>
         <div class = "save-btn-div">
           <input id="save-trip" type="submit" value="save">
@@ -354,8 +460,8 @@ function setPreviewUI(trip) {
         </p>
         <div class = "add-btns">
           <button class="btn btn-info notes"> ${svgPlus} notes </button>
-          <button class="btn btn-info"> ${svgPlus} packing list </button>
-          <button class="btn btn-info"> ${svgPlus} lodging info </button>
+          <button class="btn btn-info packing"> ${svgPlus} packing list </button>
+          <button class="btn btn-info lodging"> ${svgPlus} lodging info </button>
         </div>
         <div class = "save-btn-div">
           <input id="save-trip" type="submit" value="save">
@@ -377,60 +483,9 @@ function setPreviewUI(trip) {
   }
   $('#save-trip').on('click', _saveTrip_js__WEBPACK_IMPORTED_MODULE_0__["default"]);
   $('#clear-trip').on('click', _onResetForm_js__WEBPACK_IMPORTED_MODULE_3__["default"]);
-  $('button.notes').on('click', () => (0,_setNotes_js__WEBPACK_IMPORTED_MODULE_4__["default"])(trip));
+  $('button.notes').on('click', () => (0,_notes_of_trip_setNotes_js__WEBPACK_IMPORTED_MODULE_4__["default"])(trip));
+  $('button.packing').on('click', () => (0,_notes_of_trip_setPacking_js__WEBPACK_IMPORTED_MODULE_5__["default"])(trip));
 }
-
-/***/ }),
-
-/***/ "./frontend/js/myFunctions/gui/setNotes.js":
-/*!*************************************************!*\
-  !*** ./frontend/js/myFunctions/gui/setNotes.js ***!
-  \*************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ setNotes)
-/* harmony export */ });
-/* harmony import */ var _utils_onCloseNote_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/onCloseNote.js */ "./frontend/js/myFunctions/utils/onCloseNote.js");
-/* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-
-function setNotes(trip) {
-  $('p.trip-preview').text(`My Notes for ${trip.city}`);
-  //salvar conteúdo atual do div
-  const weatherDivContent = $('#weather').html();
-  let prevNote = '';
-  //verificar se já tem algo salvo nas notas da viagem:
-  if (trip.notes) {
-    prevNote = trip.notes;
-    console.log(`Já está salvo nesta nota: ${prevNote}`);
-  } else {
-    prevNote = '';
-  }
-  //substituir por um texarea editável (com o conteudo anterior de notes, caso haja) 
-  // e um botão de fechar 
-  const noteDiv = `
-      <div>
-        <textarea class="note-content" rows="7" cols="50"> ${prevNote} </textarea>
-        <div class = "add-btns">
-          <button class="btn btn-success close-note"> Close </button>
-        </div>
-      </div>
-    `;
-  $('#weather').html(noteDiv);
-
-  //elabborar a lógica para fechar uma nota.
-  //salvar o conteudo atual da nota
-  //restaurar a gui
-  //atualizar, no array de trips, o campo notes da viagem atual.
-  $('button.close-note').on('click', () => (0,_utils_onCloseNote_js__WEBPACK_IMPORTED_MODULE_0__["default"])(weatherDivContent, trip));
-}
-//falta salvar essa trip
-//é uma viagem já existente
-//na verdade o que quero é apenas atualizar um campo (o notes) de uma viagem 
-//já salva no meu array de viagens e depois salvar de novo esse array de viagens
-// no local storage.
 
 /***/ }),
 
@@ -764,10 +819,10 @@ async function getImageFromCache(url) {
 
 /***/ }),
 
-/***/ "./frontend/js/myFunctions/utils/onCloseNote.js":
-/*!******************************************************!*\
-  !*** ./frontend/js/myFunctions/utils/onCloseNote.js ***!
-  \******************************************************/
+/***/ "./frontend/js/myFunctions/utils/notes_of_trip/onCloseNote.js":
+/*!********************************************************************!*\
+  !*** ./frontend/js/myFunctions/utils/notes_of_trip/onCloseNote.js ***!
+  \********************************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -775,8 +830,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ onCloseNote)
 /* harmony export */ });
-/* harmony import */ var _gui_backToWeatherDescription_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../gui/backToWeatherDescription.js */ "./frontend/js/myFunctions/gui/backToWeatherDescription.js");
-/* harmony import */ var _gui_showUserTrips_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../gui/showUserTrips.js */ "./frontend/js/myFunctions/gui/showUserTrips.js");
+/* harmony import */ var _gui_notes_of_trip_backToWeatherDescription_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../gui/notes_of_trip/backToWeatherDescription.js */ "./frontend/js/myFunctions/gui/notes_of_trip/backToWeatherDescription.js");
+/* harmony import */ var _gui_showUserTrips_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../gui/showUserTrips.js */ "./frontend/js/myFunctions/gui/showUserTrips.js");
 /* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
 
@@ -800,7 +855,44 @@ function onCloseNote(weatherDivContent, trip) {
   } else {
     onsole.error('Viagem não encontrada no array.');
   }
-  (0,_gui_backToWeatherDescription_js__WEBPACK_IMPORTED_MODULE_0__["default"])(weatherDivContent, trip);
+  (0,_gui_notes_of_trip_backToWeatherDescription_js__WEBPACK_IMPORTED_MODULE_0__["default"])(weatherDivContent, trip);
+}
+
+/***/ }),
+
+/***/ "./frontend/js/myFunctions/utils/notes_of_trip/onClosePackingList.js":
+/*!***************************************************************************!*\
+  !*** ./frontend/js/myFunctions/utils/notes_of_trip/onClosePackingList.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ onClosePackingList)
+/* harmony export */ });
+/* harmony import */ var _gui_notes_of_trip_backToWeatherDescription_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../gui/notes_of_trip/backToWeatherDescription.js */ "./frontend/js/myFunctions/gui/notes_of_trip/backToWeatherDescription.js");
+/* harmony import */ var _gui_showUserTrips_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../gui/showUserTrips.js */ "./frontend/js/myFunctions/gui/showUserTrips.js");
+/* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+
+
+function onClosePackingList(weatherDivContent, trip) {
+  const noteContent = $('textarea.note-content').val();
+  trip.packingList = noteContent;
+  console.log(`O conteúdo inserido foi: ${noteContent}`);
+  const trips = JSON.parse(localStorage.getItem('tripsOnLocalStorage'));
+  const tripIndex = trips.findIndex(savedTrip => savedTrip.id === trip.id);
+  if (tripIndex !== -1) {
+    trips[tripIndex].packingList = noteContent;
+    console.log("Viagem atualizada:", trips[tripIndex]);
+    //saving trips no localstorage:
+    localStorage.setItem('tripsOnLocalStorage', JSON.stringify(trips));
+    //atualizar as viagens salvas:
+    (0,_gui_showUserTrips_js__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  } else {
+    onsole.error('Viagem não encontrada no array.');
+  }
+  (0,_gui_notes_of_trip_backToWeatherDescription_js__WEBPACK_IMPORTED_MODULE_0__["default"])(weatherDivContent, trip);
 }
 
 /***/ }),
@@ -40470,7 +40562,7 @@ module.exports = "data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("720fba55d8d983703852")
+/******/ 		__webpack_require__.h = () => ("2c1fbf243d4363e469a1")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
