@@ -13,6 +13,7 @@ export let trip = {
   imgUrl:'',
   notes:'',
   packingList:'',
+  lodgingInfo:'',
   weather: {
     temp:'',
     high:'',

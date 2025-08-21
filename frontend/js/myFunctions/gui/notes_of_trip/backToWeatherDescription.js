@@ -1,9 +1,7 @@
-import setNotes from "./setNotes.js";
-import setPacking from "./setPacking.js";
+import setAdd from "./setAdd.js";
 
 export default function backToWeatherDescription(divContent,trip) {
   $('p.trip-preview').text(`Trip preview:`);
   $('#weather').html(divContent);
-  $('button.notes').on('click', () => setNotes(trip));
-  $('button.packing').on('click',()=>setPacking(trip));
+  $('div.add-btns').on('click', (evt) => setAdd(evt,trip));
 }

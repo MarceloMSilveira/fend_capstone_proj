@@ -2,8 +2,7 @@ import saveNewTrip from "../saveTrip.js";
 import getDaysToGo from "../utils/setDaysToGo.js";
 import getIcons from "../utils/getIcons.js"
 import onResetForm from "./onResetForm.js";
-import setNotes from "./notes_of_trip/setNotes.js";
-import setPacking from "./notes_of_trip/setPacking.js";
+import setAdd from "./notes_of_trip/setAdd.js";
 
 export default function setPreviewUI(trip) {
   let descriptionContent = '';
@@ -66,6 +65,8 @@ export default function setPreviewUI(trip) {
 
   $('#save-trip').on('click', saveNewTrip);
   $('#clear-trip').on('click', onResetForm);
-  $('button.notes').on('click', () => setNotes(trip));
-  $('button.packing').on('click',() => setPacking(trip));
+  // Ao invés de adicionar um listener para cada btn
+  // eu adicionei um listener ao div que contém os btns
+  // agora eu posso apagar os arquivos setNotes e setPacking.
+  $('div.add-btns').on('click', (evt) => setAdd(evt,trip));
 }

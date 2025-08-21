@@ -4,14 +4,32 @@ import showAllTrips from "../../gui/showUserTrips.js";
 //atualizar o array de trips
 //restaurar a gui
 
-export default function onCloseNote(weatherDivContent,trip) {
+export default function onCloseNote(weatherDivContent,trip,btnType) {
+  
+  function setTrip(index) {
+    switch (btnType) {
+    case 'notes':
+      trip.notes = noteContent;
+      trips[index].notes = noteContent;
+      break;
+    case 'packing':
+      trip.packingList = noteContent;
+      trips[index].packingList = noteContent;
+      break;
+    case 'lodging':
+      trip.lodgingInfo = noteContent;
+      trips[index].lodgingInfo = noteContent;
+      break;
+    default:
+      break;
+  }
+  }
+  
   const noteContent = $('textarea.note-content').val();
-  trip.notes = noteContent;
-  console.log(`O conteúdo inserido foi: ${noteContent}`);
   const trips = JSON.parse(localStorage.getItem('tripsOnLocalStorage'));
   const tripIndex = trips.findIndex(savedTrip => savedTrip.id === trip.id);
   if (tripIndex !== -1) {
-    trips[tripIndex].notes = noteContent;
+    setTrip(tripIndex);
     console.log("Viagem atualizada:", trips[tripIndex]);
     //saving trips no localstorage:
     localStorage.setItem('tripsOnLocalStorage', JSON.stringify(trips));
