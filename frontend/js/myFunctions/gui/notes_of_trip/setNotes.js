@@ -1,4 +1,4 @@
-import onCloseNote from "../utils/onCloseNote.js";
+import onCloseNote from "../../utils/notes_of_trip/onCloseNote.js";
 
 export default function setNotes(trip) {
   $('p.trip-preview').text(`My Notes for ${trip.city}`);
@@ -16,7 +16,7 @@ export default function setNotes(trip) {
   // e um botão de fechar 
   const noteDiv = `
       <div>
-        <textarea class="note-content" rows="7" cols="50"> ${prevNote} </textarea>
+        <textarea class="note-content" rows="7" cols="50">${prevNote}</textarea>
         <div class = "add-btns">
           <button class="btn btn-success close-note"> Close </button>
         </div>
