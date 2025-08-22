@@ -12,6 +12,11 @@ export default function saveNewTrip() {
   localStorage.setItem('tripsOnLocalStorage', JSON.stringify(trips));
   //saving img to cache
   saveImageToCache(trip.imgUrl);
+  //informar ao usuário que a viagem foi salva:
+  $('p.trip-preview').text(`Your trip to ${trip.city} was saved!`);
+  //limpar o formulário e a área de visualização da viagem:
+  $("#get-data-form").trigger('reset');
+  $('#weather').html('');
   //mandar imprimir as viagens do usuário
-  showAllTrips()
+  showAllTrips();
 }

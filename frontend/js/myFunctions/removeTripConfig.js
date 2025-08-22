@@ -10,11 +10,9 @@ export default function removeTripConfig() {
       const newTrips = trips.filter(trip => trip.id !== id);
       trips.length=0;
       trips.push(...newTrips);
-      alert(`${cityToRemove} was removed!`)
-      //console.log(trips);
-      //agora eu tenho que substituir o array que está no local storage.
+      $('p.trip-preview').text(`${cityToRemove} was removed!`);
+      $('#weather').html('');
 
-      //saving trips no localstorage:
       localStorage.setItem('tripsOnLocalStorage', JSON.stringify(trips));
 
       //mandar imprimir as viagens do usuário
