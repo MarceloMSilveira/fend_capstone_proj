@@ -1,6 +1,7 @@
 import saveNewTrip from "../saveTrip.js";
 import onResetForm from "../gui/onResetForm.js";
 import setAdd from "../gui/notes_of_trip/setAdd.js";
+import axios from "axios";
 
 function getCountryName(countryCode) {
     try {
@@ -21,13 +22,24 @@ function getCountryName(countryCode) {
     }
 }
 
-export default function callCountriesApi (trip) {
+export default async function callCountriesApi (trip) {
   
   const countryName = getCountryName(trip.country);
   
-  function getCountryInfo() {
-    console.log('acessar a API e obter as info do país');
-    return `${countryName} um lugar muito bom!`;
+  async function getCountryInfoFromApi() {
+    const apiKey='5ee99919fc7d197420bdd5427abf7074';
+    const url = `https://api.countrylayer.com/v2/name/${countryName}?access_key=${apiKey}&fulltext=true`
+    try {
+      const result = await axios.get(url);
+      const capital = result.data[0].capital;
+      const region =  result.data[0].region;
+      const callingCode = result.data[0].callingCodes[0];
+      const domain = result.data[0].topLevelDomain[0];
+      const response = {countryName, capital,region,callingCode,domain};
+      return response;
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   function setTextArea(countryInfo) {
@@ -43,9 +55,19 @@ export default function callCountriesApi (trip) {
     $('#weather').html(noteDiv);
   }
 
+  function setInfoToShow(countryInfo) {
+    const infoToShow = 
+    `Capital: ${countryInfo.capital}\n`+
+    `Region: ${countryInfo.region}\n`+
+    `Calling Code: ${countryInfo.callingCode}\n`+
+    `Web main domain: ${countryInfo.domain}`
+    return infoToShow
+  }
+
   const weatherDivContent = $('#weather').html();
-  const countryInfo = getCountryInfo();
-  setTextArea(countryInfo);
+  const countryDetails = await getCountryInfoFromApi();
+  setTextArea(setInfoToShow(countryDetails));
+
   $('button.close-note').on('click',()=> {
     $('p.trip-preview').text(`Trip preview:`);  
     $('#weather').html(weatherDivContent)
