@@ -214,6 +214,13 @@ button:focus {
 } 
 
 @media (max-width:900px) {
+    #app{
+        height:100%;
+        width: 100%;
+        font-size: 30px;
+        border: none;
+    }
+
     #app > div.main {
         height: auto;
         grid-template-columns: 100%;
