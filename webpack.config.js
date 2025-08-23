@@ -1,13 +1,40 @@
 import path from "path";
-const __dirname = import.meta.dirname;
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import webpack from "webpack";
-import autoprefixer from "autoprefixer"; 
+import autoprefixer from "autoprefixer";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
+import TerserPlugin from "terser-webpack-plugin";
+import ImageMinimizerPlugin from "image-minimizer-webpack-plugin";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-export default (env,argv) =>  {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+export default (env, argv) => {
   const isDev = argv.mode === 'development';
+
   return {
+    mode: isDev ? 'development' : 'production',
     entry: './src/index.js',
+    output: {
+      filename: isDev ? 'bundle.js' : 'bundle.[contenthash].js',
+      path: path.resolve(__dirname, 'dist'),
+      clean: true,
+      publicPath: '', // importante para produção
+    },
+    devtool: isDev ? 'source-map' : false,
+    devServer: isDev ? {
+      static: './dist',
+      open: true,
+      hot: true,
+      watchFiles: ['frontend/*.html'],
+      port: 5001,
+      devMiddleware: {
+        writeToDisk: true
+      },
+    } : undefined,
     plugins: [
       new HtmlWebpackPlugin({
         template: './frontend/index.html',
@@ -17,41 +44,66 @@ export default (env,argv) =>  {
         $: 'jquery',
         jQuery: 'jquery',
       }),
+      ...(!isDev ? [new MiniCssExtractPlugin({
+        filename: '[name].[contenthash].css'
+      })] : [])
     ],
-    output: {
-      filename: 'bundle.js',
-      path: path.resolve(__dirname, 'dist'),
-      clean: true,
-    },
-    devtool: isDev ? 'source-map' : false, // adicionar source-map
-    devServer: isDev 
-      ? {
-          static: './dist',
-          open: true,
-          hot: true,
-          watchFiles: ['frontend/*.html'], // 👈 assiste arquivos HTML
-          port: 5001,
-          devMiddleware: {
-            writeToDisk: true
+    optimization: {
+      minimize: !isDev,
+      minimizer: [
+        new TerserPlugin(),
+        new CssMinimizerPlugin(),
+        new ImageMinimizerPlugin({
+          minimizer: {
+            implementation: ImageMinimizerPlugin.imageminGenerate,
+            options: {
+              plugins: [
+                ['gifsicle', { interlaced: true }],
+                ['jpegtran', { progressive: true }],
+                ['optipng', { optimizationLevel: 5 }],
+                ['svgo', {
+                  plugins: [
+                    { name: 'removeViewBox', active: false },
+                    { name: 'addAttributesToSVGElement', params: { attributes: [{ xmlns: 'http://www.w3.org/2000/svg' }] } }
+                  ]
+                }]
+              ],
+            },
           },
-        }
-      : undefined,
+        }),
+      ],
+      splitChunks: {
+        chunks: 'all',
+      }
+    },
     module: {
       rules: [
         {
           test: /\.css$/i,
-          use: ['style-loader', 'css-loader',
+          use: [
+            isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            'css-loader',
             {
               loader: 'postcss-loader',
               options: {
-                postcssOptions: {
-                  plugins: [
-                    autoprefixer
-                  ]
-                }
+                postcssOptions: { plugins: [autoprefixer] }
               }
             }
-          ],
+          ]
+        },
+        {
+          test: /\.(scss)$/,
+          use: [
+            isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                postcssOptions: { plugins: [autoprefixer] }
+              }
+            },
+            'sass-loader'
+          ]
         },
         {
           test: /\.(?:js|mjs|cjs)$/,
@@ -59,15 +111,12 @@ export default (env,argv) =>  {
           use: {
             loader: 'babel-loader',
             options: {
-              targets: "defaults",
-              presets: [
-                ['@babel/preset-env']
-              ]
+              presets: [['@babel/preset-env']]
             }
           }
         },
-        { 
-          test: /\.html$/i, 
+        {
+          test: /\.html$/i,
           loader: 'html-loader',
           options: {
             sources: {
@@ -78,53 +127,19 @@ export default (env,argv) =>  {
             }
           }
         },
-        // copia/embeda imagens referenciadas
         {
           test: /\.(png|jpe?g|gif|svg|webp)$/i,
-          type: 'asset', // vira dataURI se pequena; copia arquivo se grande
-          parser: { dataUrlCondition: { maxSize: 8 * 1024 } }, // 8KB
-          generator: { filename: 'images/[name][contenthash][ext]' }
-        },
-        {
-          test: /\.(scss)$/,
-          use: [
-            {
-              // Adds CSS to the DOM by injecting a `<style>` tag
-              loader: 'style-loader'
-            },
-            {
-              // Interprets `@import` and `url()` like `import/require()` and will resolve them
-              loader: 'css-loader'
-            },
-            {
-              // Loader for webpack to process CSS with PostCSS
-              loader: 'postcss-loader',
-              options: {
-                postcssOptions: {
-                  plugins: [
-                    autoprefixer
-                  ]
-                }
-              }
-            },
-            {
-              // Loads a SASS/SCSS file and compiles it to CSS
-              loader: 'sass-loader',
-              options: {
-                sassOptions: {
-                  // Optional: Silence Sass deprecation warnings. See note below.
-                  silenceDeprecations: [
-                    'mixed-decls',
-                    'color-functions',
-                    'global-builtin',
-                    'import'
-                  ]
-                }
-              }
+          type: 'asset',
+          parser: {
+            dataUrlCondition: {
+              maxSize: 8 * 1024
             }
-          ]
+          },
+          generator: {
+            filename: 'images/[name].[contenthash][ext]'
+          }
         }
       ]
     }
-  }
+  };
 };
