@@ -31,11 +31,12 @@ export default async function callCountriesApi (trip) {
     const url = `https://api.countrylayer.com/v2/name/${countryName}?access_key=${apiKey}&fulltext=true`
     try {
       const result = await axios.get(url);
+      //console.log(result.data[0]);
       const capital = result.data[0].capital;
       const region =  result.data[0].region;
       const callingCode = result.data[0].callingCodes[0];
       const domain = result.data[0].topLevelDomain[0];
-      const response = {countryName, capital,region,callingCode,domain};
+      const response = {countryName,capital,region,callingCode,domain};
       return response;
     } catch (error) {
       console.log(error)
