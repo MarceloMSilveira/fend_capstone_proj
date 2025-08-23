@@ -234,14 +234,16 @@ button:focus {
     }
 
     /* Estilo base dos campos de entrada */
+  
     input[type="text"],
     input[type="email"],
     input[type="password"] {
         width: 100%;
         padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Adiciona uma transição suave */
+        border: 2px solid #ccc; /* Uma borda um pouco mais grossa */
+        border-radius: 5px;
+        background-color: #f9f9f9; /* Um fundo levemente acinzentado */
+        transition: all 0.3s ease-in-out; /* Transição para suavizar as mudanças */
     }
 
     /* Efeito ao passar o mouse */
