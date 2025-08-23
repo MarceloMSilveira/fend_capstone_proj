@@ -4,7 +4,7 @@ import placeNotFound from "../gui/placeNotFound.js";
 
 export default async function callGeonamesApi(placeToGo) {
   const place = encodeURIComponent(placeToGo);
-  const url = `http://api.geonames.org/searchJSON?q=${place}&maxRows=10&username=MarceloMSilveira`;
+  const url = `https://secure.geonames.org/searchJSON?q=${place}&maxRows=10&username=MarceloMSilveira`;
   
   try {
     const allData = await axios.get(url);
