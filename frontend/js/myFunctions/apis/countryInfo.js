@@ -25,22 +25,25 @@ function getCountryName(countryCode) {
 export default async function callCountriesApi (trip) {
   
   const countryName = getCountryName(trip.country);
-  
+  console.log(countryName);
+
   async function getCountryInfoFromApi() {
     const apiKey='5ee99919fc7d197420bdd5427abf7074';
     const url = `https://api.countrylayer.com/v2/name/${countryName}?access_key=${apiKey}&fulltext=true`
+    let response = {}
     try {
       const result = await axios.get(url);
-      //console.log(result.data[0]);
+      console.log(result.data[0]);
       const capital = result.data[0].capital;
       const region =  result.data[0].region;
       const callingCode = result.data[0].callingCodes[0];
       const domain = result.data[0].topLevelDomain[0];
-      const response = {countryName,capital,region,callingCode,domain};
-      return response;
+      response = {countryName,capital,region,callingCode,domain};
     } catch (error) {
       console.log(error)
+      response = {countryName:'',capital:'',region:'',callingCode:'',domain:''};
     }
+    return response;
   }
 
   function setTextArea(countryInfo) {
@@ -56,12 +59,20 @@ export default async function callCountriesApi (trip) {
     $('#weather').html(noteDiv);
   }
 
+  function checkIfDataExist(data) {
+    if (data) {
+      return data
+    } else {
+      return `No data found.`
+    }
+  }
+
   function setInfoToShow(countryInfo) {
     const infoToShow = 
-    `Capital: ${countryInfo.capital}\n`+
-    `Region: ${countryInfo.region}\n`+
-    `Calling Code: ${countryInfo.callingCode}\n`+
-    `Web main domain: ${countryInfo.domain}`
+    `Capital: ${checkIfDataExist(countryInfo.capital)}\n`+
+    `Region: ${checkIfDataExist(countryInfo.region)}\n`+
+    `Calling Code: ${checkIfDataExist(countryInfo.callingCode)}\n`+
+    `Web main domain: ${checkIfDataExist(countryInfo.domain)}`
     return infoToShow
   }
 
