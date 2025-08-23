@@ -232,4 +232,31 @@ button:focus {
         flex-direction: column;
         justify-content: start;
     }
+
+    /* Estilo base dos campos de entrada */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Adiciona uma transição suave */
+    }
+
+    /* Efeito ao passar o mouse */
+    input[type="text"]:hover,
+    input[type="email"]:hover,
+    input[type="password"]:hover {
+        border-color: #888;
+    }
+
+    /* Efeito ao focar (quando o usuário clica no campo) */
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+        outline: none;
+    }
 }
